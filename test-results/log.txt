@@ -1,0 +1,15 @@
+2024-12-11T07:32:57.062Z - Navigated to website
+2024-12-11T07:32:57.770Z - Login completed successfully
+2024-12-11T07:32:57.776Z - Navigated to Products page
+2024-12-11T07:32:57.786Z - Search Backpack to Cart
+2024-12-11T07:32:57.868Z - Added Backpack to Cart
+2024-12-11T07:32:57.878Z - Search Backpack to Cart
+2024-12-11T07:32:57.960Z - Added T-Shirt to Cart
+2024-12-11T07:32:57.969Z - Search T-Shirt (Red) to Cart
+2024-12-11T07:32:58.056Z - Added T-Shirt (Red) to Cart
+2024-12-11T07:32:58.146Z - Navigated to Cart page
+2024-12-11T07:32:58.332Z - Proceeded to Checkout Step 1
+2024-12-11T07:32:59.042Z - Proceeded to Checkout Step 2
+2024-12-11T07:32:59.070Z - Verified tax: 2.56
+2024-12-11T07:32:59.082Z - Verified total price: 34.54
+2024-12-11T07:32:59.173Z - Order completed successfully
