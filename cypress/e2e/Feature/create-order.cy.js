@@ -2,6 +2,8 @@ import testData from '../data.json'
 import {total} from '../Feature/util'
 
 describe ('Feature: create order',() => {
+    const taxRate = 0.08
+
     beforeEach(() => {
         cy.visit('https://www.saucedemo.com/')
     })
@@ -13,6 +15,8 @@ describe ('Feature: create order',() => {
         cy.get('#user-name').type('standard_user') // กรอก Username
         cy.get('#password').type('secret_sauce') // กรอก Password
         cy.get('#login-button').click() // คลิก Login
+        //cy.task('writeLog', 'Login completed')
+
         cy.url().should('include','/inventory.html') // ไปหน้า Products
 
         // step 2: Search and Add item to Cart
@@ -58,28 +62,36 @@ describe ('Feature: create order',() => {
 
         // Step 5: Verify and Confirm Order
 
-        // Checkout: Overview 
+            // Checkout: Overview 
         cy.url().should('include','/checkout-step-two.html') // ไปหน้า Confirm Order
-        // 
+
         // cy.get('[data-test="subtotal-label"]') // 
             
             // ตรวจสอบภาษีและยอดรวม
         cy.get('[data-test="subtotal-label"]').invoke('text').then((priceText) => {
+            //cy.log(priceText);
     
-            const price = parseFloat(priceText.replace('$', ''))
-            const tax = price * (testData.taxRate)
-            const total = price * tax
-            //total(price,tax)
+            const price = parseFloat(priceText.replace('Item total: $', ''))
+            //cy.log(price)
+            const tax = price * taxRate
+            //cy.log(tax)
+            const total = price + tax
+            cy.log(total)
 
-        cy.get('[data-test="subtotal-label"]').should('contain',total) // ราคารวม
-        // ภาษี
+            //const expectedText = `Total: $${total.toFixed(2)}`; // กรณี have text
+
+        cy.get('[data-test="tax-label"]').should('contain',tax.toFixed(2)) // ภาษี
+        //cy.get('[data-test="total-label"]').should('have.text', expectedText); // ราคารวม แบบ have text
+        cy.get('[data-test="total-label"]').should('contain',total.toFixed(2)) // ราคารวม
+        
         })
 
-        // คลิกสั่งซื้อ
-        // https://www.saucedemo.com/checkout-complete.html // ไปหน้า order su------
-        // ข้อความยืนยัน เมื่อคำสั่งซื้อสำเร็จ
+        cy.get('#finish').click() // คลิกสั่งซื้อ
+        cy.url().should('include','/checkout-complete.html') // ไปหน้า Checkout: Complete!
+        cy.get('[data-test="complete-header"]').should('have.text','Thank you for your order!') // ข้อความยืนยัน เมื่อคำสั่งซื้อสำเร็จ
 
         // Step 6: Log Test Results
+        cy.log('Test completed: Order process flow successful')
 
           
     })
