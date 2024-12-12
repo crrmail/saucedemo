@@ -1,5 +1,3 @@
-import testData from '../data.json'
-import {total} from '../Feature/util'
 
 describe ('Feature: create order',() => {
     const taxRate = 0.08
