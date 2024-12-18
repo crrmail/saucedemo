@@ -6,8 +6,18 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
-      // เพิ่ม Task สำหรับการบันทึก Log
+      
       on('task', {
+        // Task สำหรับบันทึก Keywords
+        writeKeywords(keywords) {
+          const txtFilePath = 'test-results/keywords.txt';
+          // เขียนแต่ละ keyword ลงในไฟล์
+          const data = keywords.join('\n')
+          fs.writeFileSync(txtFilePath, data, 'utf8')
+          return null;
+        },
+
+        // Task สำหรับบันทึก Log
         writeLog(message) {
           // ไฟล์ที่ใช้เก็บ Log
           const logFilePath = 'test-results/log.txt';
@@ -16,7 +26,7 @@ module.exports = defineConfig({
 
           // ต้องส่งค่า null กลับเพื่อจบ Task
           return null
-        },
+        }
       })
     },
   },
